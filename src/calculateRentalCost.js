@@ -1,19 +1,25 @@
-/**
- * @param {number} days
- *
- * @return {number}
- */
-function calculateRentalCost(days) {
-  // write code here
-  let price = days * 40;
+const COST_PER_DAY = 40;
 
-  if (days >= 7) {
-    price -= 50;
-  } else if (days >= 3) {
-    price -= 20;
+const LONG_TERM_DAYS = 7;
+const LONG_TERM_DISCOUNT = 50;
+
+const MID_TERM_DAYS = 3;
+const MID_TERM_DISCOUNT = 20;
+
+export const calculateRentalCost = (days) => {
+  // Base price
+  const basePrice = days * COST_PER_DAY;
+
+  // Long-term discount (7+ days)
+  if (days >= LONG_TERM_DAYS) {
+    return basePrice - LONG_TERM_DISCOUNT;
   }
 
-  return price;
-}
+  // Mid-term discount (3–6 days)
+  if (days >= MID_TERM_DAYS) {
+    return basePrice - MID_TERM_DISCOUNT;
+  }
 
-module.exports = calculateRentalCost;
+  // Short rentals (0–2 days)
+  return basePrice;
+};
